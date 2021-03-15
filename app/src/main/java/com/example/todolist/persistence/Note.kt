@@ -7,7 +7,7 @@ import java.time.LocalDateTime
 @Entity
 data class Note(
     @PrimaryKey(autoGenerate = true)
-    val id: Int,
+    val id: Long?,
     val title: String,
     val text: String
 )
