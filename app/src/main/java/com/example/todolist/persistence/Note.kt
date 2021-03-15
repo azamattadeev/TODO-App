@@ -9,6 +9,5 @@ data class Note(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val title: String,
-    val text: String,
-    val lastChange: LocalDateTime
+    val text: String
 )
