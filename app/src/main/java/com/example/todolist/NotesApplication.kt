@@ -1,24 +1,23 @@
 package com.example.todolist
 
 import android.app.Application
-import androidx.room.Room
-import com.example.todolist.persistence.AppDatabase
+import com.example.todolist.dagger.AppComponent
+import com.example.todolist.dagger.DaggerAppComponent
+import com.example.todolist.dagger.DatabaseModule
+import com.example.todolist.dagger.AppContextModule
 
 class NotesApplication: Application() {
 
     companion object {
-        lateinit var instance: NotesApplication
-        lateinit var appDatabase: AppDatabase
+        lateinit var appComponent: AppComponent
     }
 
     override fun onCreate() {
         super.onCreate()
-        instance = this
-        appDatabase = Room.databaseBuilder(
-            applicationContext,
-            AppDatabase::class.java, "app-database"
-        ).build()
+         appComponent = DaggerAppComponent.builder()
+             .appContextModule(AppContextModule(this))
+             .databaseModule(DatabaseModule())
+             .build()
     }
-
 
 }
