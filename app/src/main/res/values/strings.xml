@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TODO List</string>
+    <string name="add_note_cd">Add</string>
 </resources>
