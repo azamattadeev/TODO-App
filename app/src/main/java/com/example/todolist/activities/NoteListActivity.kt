@@ -28,11 +28,7 @@ class NoteListActivity: AppCompatActivity(), NoteListView {
         presenter.handler = Handler(Looper.getMainLooper())
         presenter.attachView(this)
 
-        val recycler = findViewById<RecyclerView>(R.id.activity_notes_list__notes_recycler)
-        recycler.layoutManager = LinearLayoutManager(this)
-
-        notesAdapter = NotesAdapter(emptyList())
-        recycler.adapter = notesAdapter
+        buildRecycler()
 
         presenter.loadNoteList()
     }
@@ -42,12 +38,19 @@ class NoteListActivity: AppCompatActivity(), NoteListView {
         presenter.detachView()
     }
 
-    override fun navigateToNoteEditor() {
+    fun navigateToNoteEditor() {
         TODO()
     }
 
     override fun onAllNotesLoaded(notes: List<Note>) {
         notesAdapter.items = notes
+    }
+
+    private fun buildRecycler() {
+        val recycler = findViewById<RecyclerView>(R.id.activity_notes_list__notes_recycler)
+        recycler.layoutManager = LinearLayoutManager(this)
+        notesAdapter = NotesAdapter(emptyList())
+        recycler.adapter = notesAdapter
     }
 
 }

@@ -11,7 +11,7 @@ import java.util.concurrent.ExecutorService
 import javax.inject.Singleton
 
 @Module
-class MvpModule {
+class NoteListMvpModule {
 
     @Provides
     @NotNull

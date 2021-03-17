@@ -1,10 +1,7 @@
 package com.example.todolist
 
 import android.app.Application
-import com.example.todolist.dagger.AppComponent
-import com.example.todolist.dagger.AppContextModule
-import com.example.todolist.dagger.DaggerAppComponent
-import com.example.todolist.dagger.DatabaseModule
+import com.example.todolist.dagger.*
 
 class NotesApplication: Application() {
 
@@ -20,6 +17,8 @@ class NotesApplication: Application() {
     private fun buildAppComponent() {
         appComponent = DaggerAppComponent.builder()
                 .appContextModule(AppContextModule(this))
+                .executorServiceModule(ExecutorServiceModule())
+                .noteListMvpModule(NoteListMvpModule())
                 .databaseModule(DatabaseModule())
                 .build()
     }

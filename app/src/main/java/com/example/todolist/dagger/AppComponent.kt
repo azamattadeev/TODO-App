@@ -7,7 +7,7 @@ import com.example.todolist.mvp.presenter.NoteListPresenter
 import dagger.Component
 import javax.inject.Singleton
 
-@Component(modules = [AppContextModule::class, DatabaseModule::class, ExecutorServiceModule::class, MvpModule::class])
+@Component(modules = [AppContextModule::class, DatabaseModule::class, ExecutorServiceModule::class, NoteListMvpModule::class])
 @Singleton
 interface AppComponent {
 

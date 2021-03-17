@@ -6,6 +6,4 @@ interface NoteListView {
 
     fun onAllNotesLoaded(notes: List<Note>)
 
-    fun navigateToNoteEditor()
-
 }
