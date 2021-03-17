@@ -1,13 +1,12 @@
 package com.example.todolist.mvp.model
 
-import com.example.todolist.NotesApplication
 import com.example.todolist.mvp.model.listeners.NoteListModelListener
 import com.example.todolist.persistence.Note
 import com.example.todolist.persistence.NoteDao
 import java.util.concurrent.ExecutorService
 
-class NoteListModelImpl(val noteDao: NoteDao,
-                        val executorService: ExecutorService) : NoteListModel {
+class NoteListModelImpl(private val noteDao: NoteDao,
+                        private val executorService: ExecutorService) : NoteListModel {
 
     private val listeners: MutableList<NoteListModelListener> = ArrayList()
 

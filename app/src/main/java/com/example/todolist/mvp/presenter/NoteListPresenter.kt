@@ -8,7 +8,7 @@ import com.example.todolist.mvp.view.NoteListView
 import com.example.todolist.persistence.Note
 
 
-class NoteListPresenter(val noteListModel: NoteListModel) : NoteListModelListener {
+class NoteListPresenter(private val noteListModel: NoteListModel) : NoteListModelListener {
     private var noteListView: NoteListView? = null
     lateinit var handler: Handler
 

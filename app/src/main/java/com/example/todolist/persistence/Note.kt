@@ -2,7 +2,6 @@ package com.example.todolist.persistence
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.time.LocalDateTime
 
 @Entity
 data class Note(
