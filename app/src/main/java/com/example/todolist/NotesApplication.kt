@@ -19,6 +19,7 @@ class NotesApplication: Application() {
                 .appContextModule(AppContextModule(this))
                 .executorServiceModule(ExecutorServiceModule())
                 .noteListMvpModule(NoteListMvpModule())
+                .noteEditorMvpModule(NoteEditorMvpModule())
                 .databaseModule(DatabaseModule())
                 .build()
     }
