@@ -22,6 +22,13 @@ class NoteEditorModelImpl(var noteDao: NoteDao, var executorService: ExecutorSer
         }
     }
 
+    override fun updateNote(note: Note) {
+        executorService.execute {
+            noteDao.update(note)
+            listeners.forEach { l -> l.onNoteUpdated() }
+        }
+    }
+
     override fun addListener(listener: NoteEditorModelListener) {
         listeners.add(listener)
     }

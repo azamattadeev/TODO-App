@@ -12,7 +12,7 @@ class NoteListModelImpl(private val noteDao: NoteDao,
 
     override fun loadAllNotes() {
         executorService.execute {
-            val notesList: List<Note> = noteDao.getAll()
+            val notesList: List<Note> = noteDao.getAllOrderByIdDesc()
             listeners.forEach { l -> l.onAllNotesLoaded(notesList)}
         }
     }

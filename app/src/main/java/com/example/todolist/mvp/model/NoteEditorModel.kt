@@ -9,6 +9,8 @@ interface NoteEditorModel {
 
     fun insertNote(note: Note)
 
+    fun updateNote(note: Note)
+
     fun addListener(listener: NoteEditorModelListener)
 
     fun deleteListener(listener: NoteEditorModelListener)

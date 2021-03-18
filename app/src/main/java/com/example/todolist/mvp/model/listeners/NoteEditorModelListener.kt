@@ -8,4 +8,6 @@ interface NoteEditorModelListener {
 
     fun onNoteInserted(id: Long)
 
+    fun onNoteUpdated()
+
 }
