@@ -33,14 +33,16 @@ class NoteEditorActivity: AppCompatActivity(), NoteEditorView {
 
         title = findViewById(R.id.activity_note_editor__title_edit)
         text = findViewById(R.id.activity_note_editor__text_edit)
+
         val backButton = findViewById<Button>(R.id.activity_note_editor__back_btn)
         val saveButton = findViewById<Button>(R.id.activity_note_editor__save_btn)
-
-        id = intent.extras?.getLong(NOTE_ID_START_EDITOR)
-        id?.let { presenter.loadNoteById(it) }
-
         backButton.setOnClickListener { finish() }
         saveButton.setOnClickListener { saveNote() }
+
+        id = intent.extras?.getLong(NOTE_ID_START_EDITOR)
+        if (savedInstanceState == null) {
+            id?.let { presenter.loadNoteById(it) }
+        }
     }
 
     override fun onDestroy() {

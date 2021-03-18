@@ -35,8 +35,6 @@ class NoteListActivity: AppCompatActivity(), NoteListView, OnItemClickListener {
 
         buildRecycler()
 
-        presenter.loadNoteList()
-
         findViewById<FloatingActionButton>(R.id.activity_note_list__add_note_fab)
                 .setOnClickListener { startEditorForNewNote() }
     }
