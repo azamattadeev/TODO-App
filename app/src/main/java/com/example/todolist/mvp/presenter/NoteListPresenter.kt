@@ -1,7 +1,6 @@
 package com.example.todolist.mvp.presenter
 
 import android.os.Handler
-import com.example.todolist.NotesApplication
 import com.example.todolist.mvp.model.NoteListModel
 import com.example.todolist.mvp.model.listeners.NoteListModelListener
 import com.example.todolist.mvp.view.NoteListView
@@ -13,7 +12,6 @@ class NoteListPresenter(private val noteListModel: NoteListModel) : NoteListMode
     lateinit var handler: Handler
 
     init {
-        NotesApplication.appComponent.inject(this)
         noteListModel.addListener(this)
     }
 

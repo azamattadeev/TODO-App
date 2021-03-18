@@ -6,7 +6,7 @@
     android:layout_margin="10dp">
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/recycler_note_item__title"
+        android:id="@+id/note_list_item__title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
