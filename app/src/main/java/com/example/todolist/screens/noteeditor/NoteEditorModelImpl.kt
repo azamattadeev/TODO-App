@@ -1,6 +1,5 @@
-package com.example.todolist.mvp.model
+package com.example.todolist.screens.noteeditor
 
-import com.example.todolist.mvp.model.listeners.NoteEditorModelListener
 import com.example.todolist.persistence.Note
 import com.example.todolist.persistence.NoteDao
 import java.util.concurrent.ExecutorService

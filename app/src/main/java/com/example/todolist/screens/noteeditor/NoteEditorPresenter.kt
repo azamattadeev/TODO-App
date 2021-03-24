@@ -1,9 +1,6 @@
-package com.example.todolist.mvp.presenter
+package com.example.todolist.screens.noteeditor
 
 import android.os.Handler
-import com.example.todolist.mvp.model.NoteEditorModel
-import com.example.todolist.mvp.model.listeners.NoteEditorModelListener
-import com.example.todolist.mvp.view.NoteEditorView
 import com.example.todolist.persistence.Note
 
 class NoteEditorPresenter(private val noteEditorModel: NoteEditorModel) : NoteEditorModelListener {

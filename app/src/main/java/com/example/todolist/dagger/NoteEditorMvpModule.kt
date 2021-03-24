@@ -1,8 +1,8 @@
 package com.example.todolist.dagger
 
-import com.example.todolist.mvp.model.NoteEditorModel
-import com.example.todolist.mvp.model.NoteEditorModelImpl
-import com.example.todolist.mvp.presenter.NoteEditorPresenter
+import com.example.todolist.screens.noteeditor.NoteEditorModel
+import com.example.todolist.screens.noteeditor.NoteEditorModelImpl
+import com.example.todolist.screens.noteeditor.NoteEditorPresenter
 import com.example.todolist.persistence.NoteDao
 import dagger.Module
 import dagger.Provides

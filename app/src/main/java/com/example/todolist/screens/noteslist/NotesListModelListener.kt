@@ -1,8 +1,8 @@
-package com.example.todolist.mvp.model.listeners
+package com.example.todolist.screens.noteslist
 
 import com.example.todolist.persistence.Note
 
-interface NoteListModelListener {
+interface NotesListModelListener {
 
     fun onAllNotesLoaded(notes: List<Note>)
 

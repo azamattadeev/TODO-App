@@ -1,8 +1,8 @@
-package com.example.todolist.mvp.view
+package com.example.todolist.screens.noteslist
 
 import com.example.todolist.persistence.Note
 
-interface NoteListView {
+interface NotesListView {
 
     fun onAllNotesLoaded(notes: List<Note>)
 

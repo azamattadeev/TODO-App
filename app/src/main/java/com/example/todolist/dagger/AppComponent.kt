@@ -1,10 +1,10 @@
 package com.example.todolist.dagger
 
 import com.example.todolist.NotesApplication
-import com.example.todolist.activities.NoteEditorActivity
-import com.example.todolist.activities.NoteListActivity
-import com.example.todolist.mvp.model.NoteListModel
-import com.example.todolist.mvp.presenter.NoteListPresenter
+import com.example.todolist.screens.noteeditor.NoteEditorActivity
+import com.example.todolist.screens.noteslist.NotesListActivity
+import com.example.todolist.screens.noteslist.NotesListModel
+import com.example.todolist.screens.noteslist.NotesListPresenter
 import dagger.Component
 import javax.inject.Singleton
 
@@ -12,13 +12,13 @@ import javax.inject.Singleton
 @Singleton
 interface AppComponent {
 
-    fun inject(noteListActivity: NoteListActivity)
+    fun inject(notesListActivity: NotesListActivity)
 
     fun inject(noteEditorActivity: NoteEditorActivity)
 
-    fun inject(noteListPresenter: NoteListPresenter)
+    fun inject(notesListPresenter: NotesListPresenter)
 
-    fun inject(noteListModel: NoteListModel)
+    fun inject(notesListModel: NotesListModel)
 
     fun inject(notesApplication: NotesApplication)
 

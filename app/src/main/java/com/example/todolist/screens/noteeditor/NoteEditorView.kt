@@ -1,4 +1,4 @@
-package com.example.todolist.mvp.view
+package com.example.todolist.screens.noteeditor
 
 import com.example.todolist.persistence.Note
 

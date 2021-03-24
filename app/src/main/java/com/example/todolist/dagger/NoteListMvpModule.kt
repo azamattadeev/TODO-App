@@ -1,8 +1,8 @@
 package com.example.todolist.dagger
 
-import com.example.todolist.mvp.model.NoteListModel
-import com.example.todolist.mvp.model.NoteListModelImpl
-import com.example.todolist.mvp.presenter.NoteListPresenter
+import com.example.todolist.screens.noteslist.NotesListModel
+import com.example.todolist.screens.noteslist.NotesListModelImpl
+import com.example.todolist.screens.noteslist.NotesListPresenter
 import com.example.todolist.persistence.NoteDao
 import dagger.Module
 import dagger.Provides
@@ -16,15 +16,15 @@ class NoteListMvpModule {
     @Provides
     @NotNull
     @Singleton
-    fun provideNoteListPresenter(noteListModel: NoteListModel): NoteListPresenter {
-        return NoteListPresenter(noteListModel)
+    fun provideNoteListPresenter(notesListModel: NotesListModel): NotesListPresenter {
+        return NotesListPresenter(notesListModel)
     }
 
     @Provides
     @NotNull
     @Singleton
-    fun provideNoteListModel(noteDao: NoteDao, executorService: ExecutorService): NoteListModel {
-        return NoteListModelImpl(noteDao, executorService)
+    fun provideNoteListModel(noteDao: NoteDao, executorService: ExecutorService): NotesListModel {
+        return NotesListModelImpl(noteDao, executorService)
     }
 
 }

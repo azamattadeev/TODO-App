@@ -1,4 +1,4 @@
-package com.example.todolist.activities
+package com.example.todolist.screens.noteeditor
 
 import android.os.Bundle
 import android.os.Handler
@@ -8,8 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.todolist.NotesApplication
 import com.example.todolist.R
-import com.example.todolist.mvp.presenter.NoteEditorPresenter
-import com.example.todolist.mvp.view.NoteEditorView
+import com.example.todolist.NOTE_ID_START_EDITOR
 import com.example.todolist.persistence.Note
 import javax.inject.Inject
 

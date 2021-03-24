@@ -1,4 +1,4 @@
-package com.example.todolist.recycler
+package com.example.todolist.screens.noteslist.recycler
 
 interface OnItemClickListener {
 

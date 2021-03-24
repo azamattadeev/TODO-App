@@ -1,4 +1,4 @@
-package com.example.todolist.recycler
+package com.example.todolist.screens.noteslist.recycler
 
 import android.view.LayoutInflater
 import android.view.View

@@ -1,26 +1,25 @@
-package com.example.todolist.activities
+package com.example.todolist.screens.noteslist
 
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.NotesApplication
 import com.example.todolist.R
-import com.example.todolist.mvp.presenter.NoteListPresenter
-import com.example.todolist.mvp.view.NoteListView
+import com.example.todolist.NOTE_ID_START_EDITOR
+import com.example.todolist.screens.noteeditor.NoteEditorActivity
 import com.example.todolist.persistence.Note
-import com.example.todolist.recycler.NotesAdapter
-import com.example.todolist.recycler.OnItemClickListener
+import com.example.todolist.screens.noteslist.recycler.NotesAdapter
+import com.example.todolist.screens.noteslist.recycler.OnItemClickListener
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import javax.inject.Inject
 
-class NoteListActivity: AppCompatActivity(), NoteListView, OnItemClickListener {
+class NotesListActivity: AppCompatActivity(), NotesListView, OnItemClickListener {
 
     @Inject
-    lateinit var presenter: NoteListPresenter
+    lateinit var presenter: NotesListPresenter
 
     private lateinit var notesAdapter: NotesAdapter
 

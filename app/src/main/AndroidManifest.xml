@@ -11,7 +11,7 @@
         android:theme="@style/Theme.TODOList"
         android:name=".NotesApplication">
 
-        <activity android:name=".activities.NoteListActivity">
+        <activity android:name=".screens.noteslist.NotesListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.NoteEditorActivity" />
+        <activity android:name=".screens.noteeditor.NoteEditorActivity" />
 
     </application>
 
