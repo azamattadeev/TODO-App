@@ -1,14 +1,13 @@
 package com.example.todolist.screens.noteeditor
 
 import android.os.Bundle
-import android.os.Handler
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.todolist.NOTE_ID_START_EDITOR
 import com.example.todolist.NotesApplication
 import com.example.todolist.R
-import com.example.todolist.NOTE_ID_START_EDITOR
 import com.example.todolist.persistence.Note
 import javax.inject.Inject
 
@@ -27,7 +26,6 @@ class NoteEditorActivity: AppCompatActivity(), NoteEditorView {
 
         NotesApplication.appComponent.inject(this)
 
-        presenter.handler = Handler(mainLooper)
         presenter.attachView(this)
 
         title = findViewById(R.id.activity_note_editor__title_edit)

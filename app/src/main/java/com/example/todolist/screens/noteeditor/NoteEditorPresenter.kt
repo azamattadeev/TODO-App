@@ -1,11 +1,12 @@
 package com.example.todolist.screens.noteeditor
 
 import android.os.Handler
+import android.os.Looper
 import com.example.todolist.persistence.Note
 
 class NoteEditorPresenter(private val noteEditorModel: NoteEditorModel) : NoteEditorModelListener {
     private var noteEditorView: NoteEditorView? = null
-    lateinit var handler: Handler
+    private val handler = Handler(Looper.getMainLooper())
 
     init {
         noteEditorModel.addListener(this)

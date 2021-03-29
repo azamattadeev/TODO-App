@@ -2,15 +2,14 @@ package com.example.todolist.screens.noteslist
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.todolist.NOTE_ID_START_EDITOR
 import com.example.todolist.NotesApplication
 import com.example.todolist.R
-import com.example.todolist.NOTE_ID_START_EDITOR
-import com.example.todolist.screens.noteeditor.NoteEditorActivity
 import com.example.todolist.persistence.Note
+import com.example.todolist.screens.noteeditor.NoteEditorActivity
 import com.example.todolist.screens.noteslist.recycler.NotesAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import javax.inject.Inject
@@ -28,7 +27,6 @@ class NotesListActivity: AppCompatActivity(), NotesListView {
 
         NotesApplication.appComponent.inject(this)
 
-        presenter.handler = Handler(mainLooper)
         presenter.attachView(this)
 
         buildRecycler()
