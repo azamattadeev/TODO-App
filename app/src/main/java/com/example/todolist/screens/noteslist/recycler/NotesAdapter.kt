@@ -8,8 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.R
 import com.example.todolist.persistence.Note
 
-class NotesAdapter(items: List<Note>,
-                   private val onItemClickListener: OnItemClickListener
+class NotesAdapter(
+    items: List<Note>,
+    private val onNoteClicked: (Note) -> Unit
 ): RecyclerView.Adapter<NotesAdapter.NoteViewHolder>() {
 
     var items = items
@@ -25,7 +26,7 @@ class NotesAdapter(items: List<Note>,
 
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
         holder.title.text = items[position].title
-        holder.title.setOnClickListener { onItemClickListener.onItemClicked(position) }
+        holder.title.setOnClickListener { onNoteClicked(items[position]) }
     }
 
     override fun getItemCount(): Int = items.size

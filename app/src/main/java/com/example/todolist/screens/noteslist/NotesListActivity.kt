@@ -12,11 +12,10 @@ import com.example.todolist.NOTE_ID_START_EDITOR
 import com.example.todolist.screens.noteeditor.NoteEditorActivity
 import com.example.todolist.persistence.Note
 import com.example.todolist.screens.noteslist.recycler.NotesAdapter
-import com.example.todolist.screens.noteslist.recycler.OnItemClickListener
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import javax.inject.Inject
 
-class NotesListActivity: AppCompatActivity(), NotesListView, OnItemClickListener {
+class NotesListActivity: AppCompatActivity(), NotesListView {
 
     @Inject
     lateinit var presenter: NotesListPresenter
@@ -52,9 +51,9 @@ class NotesListActivity: AppCompatActivity(), NotesListView, OnItemClickListener
         notesAdapter.items = notes
     }
 
-    override fun onItemClicked(position: Int) {
+    private fun onNoteClicked(note: Note) {
         val intent = Intent(this, NoteEditorActivity::class.java)
-        intent.putExtra(NOTE_ID_START_EDITOR, notesAdapter.items[position].id)
+        intent.putExtra(NOTE_ID_START_EDITOR, note.id)
         startActivity(intent)
     }
 
@@ -66,7 +65,7 @@ class NotesListActivity: AppCompatActivity(), NotesListView, OnItemClickListener
     private fun buildRecycler() {
         val recycler = findViewById<RecyclerView>(R.id.activity_note_list__notes_recycler)
         recycler.layoutManager = LinearLayoutManager(this)
-        notesAdapter = NotesAdapter(emptyList(), this)
+        notesAdapter = NotesAdapter(emptyList()) { note -> onNoteClicked(note) }
         recycler.adapter = notesAdapter
     }
 
