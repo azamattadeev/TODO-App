@@ -63,7 +63,7 @@ class NotesListActivity: AppCompatActivity(), NotesListView {
     private fun buildRecycler() {
         val recycler = findViewById<RecyclerView>(R.id.activity_note_list__notes_recycler)
         recycler.layoutManager = LinearLayoutManager(this)
-        notesAdapter = NotesAdapter(emptyList()) { note -> onNoteClicked(note) }
+        notesAdapter = NotesAdapter { onNoteClicked(it) }
         recycler.adapter = notesAdapter
     }
 

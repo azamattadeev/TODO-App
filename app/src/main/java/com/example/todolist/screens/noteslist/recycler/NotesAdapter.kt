@@ -9,11 +9,10 @@ import com.example.todolist.R
 import com.example.todolist.persistence.Note
 
 class NotesAdapter(
-    items: List<Note>,
     private val onNoteClicked: (Note) -> Unit
 ): RecyclerView.Adapter<NotesAdapter.NoteViewHolder>() {
 
-    var items = items
+    var items = emptyList<Note>()
         set(value) {
             field = value
             notifyDataSetChanged()
