@@ -1,7 +1,5 @@
 package com.example.todolist.screens.noteeditor
 
-import android.os.Handler
-import android.os.Looper
 import com.example.todolist.persistence.Note
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -14,7 +12,6 @@ constructor(
 ) : NoteEditorPresenter, NoteEditorModelListener {
 
     private var noteEditorView: NoteEditorView? = null
-    private val handler = Handler(Looper.getMainLooper())
 
     init {
         noteEditorModel.addListener(this)
@@ -33,7 +30,7 @@ constructor(
     }
 
     override fun onNoteByIdLoaded(note: Note) {
-        handler.post { noteEditorView?.onNoteByIdLoaded(note) }
+        noteEditorView?.onNoteByIdLoaded(note)
     }
 
     override fun onNoteInserted(id: Long) {
@@ -45,7 +42,7 @@ constructor(
     }
 
     private fun savingFinished() {
-        handler.post { noteEditorView?.onSavingFinished() }
+        noteEditorView?.onSavingFinished()
     }
 
     override fun attachView(noteEditorView: NoteEditorView) {

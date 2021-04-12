@@ -1,7 +1,5 @@
 package com.example.todolist.screens.noteslist
 
-import android.os.Handler
-import android.os.Looper
 import com.example.todolist.persistence.Note
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -14,7 +12,6 @@ constructor(
 ) : NotesListPresenter, NotesListModelListener {
 
     private var notesListView: NotesListView? = null
-    private val handler = Handler(Looper.getMainLooper())
 
     init {
         notesListModel.addListener(this)
@@ -25,7 +22,7 @@ constructor(
     }
 
     override fun onAllNotesLoaded(notes: List<Note>) {
-        handler.post { notesListView?.onAllNotesLoaded(notes) }
+        notesListView?.onAllNotesLoaded(notes)
     }
 
     override fun attachView(notesListView: NotesListView) {

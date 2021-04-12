@@ -1,5 +1,7 @@
 package com.example.todolist.screens.noteeditor
 
+import android.os.Handler
+import android.os.Looper
 import com.example.todolist.persistence.Note
 import com.example.todolist.persistence.NoteDao
 import java.util.concurrent.ExecutorService
@@ -14,26 +16,34 @@ constructor(
     private val executorService: ExecutorService
 ) : NoteEditorModel {
 
+    private val handler = Handler(Looper.getMainLooper())
+
     private val listeners: MutableList<NoteEditorModelListener> = ArrayList()
 
     override fun loadNoteById(id: Long) {
         executorService.execute {
             val note = noteDao.getById(id)
-            listeners.forEach { l -> l.onNoteByIdLoaded(note)}
+            handler.post {
+                listeners.forEach { l -> l.onNoteByIdLoaded(note)}
+            }
         }
     }
 
     override fun insertNote(note: Note) {
         executorService.execute {
             val id = noteDao.insert(note)
-            listeners.forEach { l -> l.onNoteInserted(id) }
+            handler.post {
+                listeners.forEach { l -> l.onNoteInserted(id) }
+            }
         }
     }
 
     override fun updateNote(note: Note) {
         executorService.execute {
             noteDao.update(note)
-            listeners.forEach { l -> l.onNoteUpdated() }
+            handler.post {
+                listeners.forEach { l -> l.onNoteUpdated() }
+            }
         }
     }
 
