@@ -3,9 +3,16 @@ package com.example.todolist.screens.noteslist
 import com.example.todolist.persistence.Note
 import com.example.todolist.persistence.NoteDao
 import java.util.concurrent.ExecutorService
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class NotesListModelImpl(private val noteDao: NoteDao,
-                         private val executorService: ExecutorService) : NotesListModel {
+@Singleton
+class NotesListModelImpl
+@Inject
+constructor(
+    private val noteDao: NoteDao,
+    private val executorService: ExecutorService
+) : NotesListModel {
 
     private val listeners: MutableList<NotesListModelListener> = ArrayList()
 

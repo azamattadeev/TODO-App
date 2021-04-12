@@ -17,10 +17,6 @@ class NotesApplication: Application() {
     private fun buildAppComponent() {
         appComponent = DaggerAppComponent.builder()
                 .appContextModule(AppContextModule(this))
-                .executorServiceModule(ExecutorServiceModule())
-                .noteListMvpModule(NoteListMvpModule())
-                .noteEditorMvpModule(NoteEditorMvpModule())
-                .databaseModule(DatabaseModule())
                 .build()
     }
 

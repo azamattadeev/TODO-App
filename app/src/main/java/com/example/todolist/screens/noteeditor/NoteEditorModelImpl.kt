@@ -3,8 +3,17 @@ package com.example.todolist.screens.noteeditor
 import com.example.todolist.persistence.Note
 import com.example.todolist.persistence.NoteDao
 import java.util.concurrent.ExecutorService
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class NoteEditorModelImpl(var noteDao: NoteDao, var executorService: ExecutorService) : NoteEditorModel {
+@Singleton
+class NoteEditorModelImpl
+@Inject
+constructor(
+    private val noteDao: NoteDao,
+    private val executorService: ExecutorService
+) : NoteEditorModel {
+
     private val listeners: MutableList<NoteEditorModelListener> = ArrayList()
 
     override fun loadNoteById(id: Long) {
