@@ -47,7 +47,7 @@ class NotesListActivity: AppCompatActivity(), NotesListView {
     }
 
     override fun loadNotes() {
-        presenter.loadNoteList()
+        presenter.loadNotesList()
     }
 
     private fun onNoteClicked(note: Note) {

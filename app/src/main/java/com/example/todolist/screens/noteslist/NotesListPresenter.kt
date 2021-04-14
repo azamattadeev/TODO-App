@@ -2,7 +2,6 @@ package com.example.todolist.screens.noteslist
 
 import com.example.todolist.model.NoteModel
 import com.example.todolist.model.NoteModelListener
-import com.example.todolist.persistence.Note
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -19,24 +18,10 @@ constructor(
         noteModel.addListener(this)
     }
 
-    fun loadNoteList() {
-        noteModel.loadAllNotes()
-    }
-
-    override fun onAllNotesLoaded(notes: List<Note>) {
-        notesListView?.onAllNotesLoaded(notes)
-    }
-
-    override fun onNoteInserted(id: Long) {
-        notesListView?.loadNotes()
-    }
-
-    override fun onNoteUpdated() {
-        notesListView?.loadNotes()
-    }
-
-    override fun onNoteByIdLoaded(note: Note) {
-
+    fun loadNotesList() {
+        noteModel.loadAllNotes {
+            notesListView?.onAllNotesLoaded(it)
+        }
     }
 
     fun attachView(notesListView: NotesListView) {
@@ -45,6 +30,10 @@ constructor(
 
     fun detachView() {
         notesListView = null
+    }
+
+    override fun onDataChanged() {
+        notesListView?.loadNotes()
     }
 
 }

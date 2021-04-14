@@ -20,38 +20,40 @@ constructor(
 
     private val listeners: MutableList<NoteModelListener> = ArrayList()
 
-    fun loadAllNotes() {
+    fun loadAllNotes(callback: (List<Note>) -> Unit) {
         executorService.execute {
             val notesList: List<Note> = noteDao.getAllOrderByIdDesc()
             handler.post {
-                listeners.forEach { it.onAllNotesLoaded(notesList)}
+                callback(notesList)
             }
         }
     }
 
-    fun loadNoteById(id: Long) {
+    fun loadNoteById(id: Long, callback: (Note) -> Unit) {
         executorService.execute {
             val note = noteDao.getById(id)
             handler.post {
-                listeners.forEach { l -> l.onNoteByIdLoaded(note)}
+                callback(note)
             }
         }
     }
 
-    fun insertNote(note: Note) {
+    fun insertNote(note: Note, callback: () -> Unit) {
         executorService.execute {
-            val id = noteDao.insert(note)
+            noteDao.insert(note)
             handler.post {
-                listeners.forEach { l -> l.onNoteInserted(id) }
+                listeners.forEach { it.onDataChanged() }
+                callback()
             }
         }
     }
 
-    fun updateNote(note: Note) {
+    fun updateNote(note: Note, callback: () -> Unit) {
         executorService.execute {
             noteDao.update(note)
             handler.post {
-                listeners.forEach { l -> l.onNoteUpdated() }
+                listeners.forEach { it.onDataChanged() }
+                callback()
             }
         }
     }
