@@ -1,17 +1,62 @@
 package com.example.todolist.screens.noteeditor
 
+import com.example.todolist.model.NoteModel
+import com.example.todolist.model.NoteModelListener
 import com.example.todolist.persistence.Note
+import javax.inject.Inject
+import javax.inject.Singleton
 
-interface NoteEditorPresenter {
+@Singleton
+class NoteEditorPresenter
+@Inject
+constructor(
+    private val noteModel: NoteModel
+) : NoteModelListener {
 
-    fun loadNoteById(id: Long)
+    private var noteEditorView: NoteEditorView? = null
 
-    fun insertNote(note: Note)
+    init {
+        noteModel.addListener(this)
+    }
 
-    fun updateNote(note: Note)
+    fun loadNoteById(id: Long) {
+        noteModel.loadNoteById(id)
+    }
 
-    fun attachView(noteEditorView: NoteEditorView)
+    fun insertNote(note: Note) {
+        noteModel.insertNote(note)
+    }
 
-    fun detachView()
+    fun updateNote(note: Note) {
+        noteModel.updateNote(note)
+    }
+
+    fun attachView(noteEditorView: NoteEditorView) {
+        this.noteEditorView = noteEditorView
+    }
+
+    fun detachView() {
+        this.noteEditorView = null
+    }
+
+    override fun onNoteByIdLoaded(note: Note) {
+        noteEditorView?.onNoteByIdLoaded(note)
+    }
+
+    override fun onNoteInserted(id: Long) {
+        savingFinished()
+    }
+
+    override fun onNoteUpdated() {
+        savingFinished()
+    }
+
+    override fun onAllNotesLoaded(notes: List<Note>) {
+
+    }
+
+    private fun savingFinished() {
+        noteEditorView?.onSavingFinished()
+    }
 
 }

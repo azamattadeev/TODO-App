@@ -5,7 +5,7 @@ import com.example.todolist.screens.noteslist.NotesListActivity
 import dagger.Component
 import javax.inject.Singleton
 
-@Component(modules = [AppContextModule::class, DatabaseModule::class, ExecutorServiceModule::class, NoteListMvpModule::class, NoteEditorMvpModule::class])
+@Component(modules = [AppContextModule::class, DatabaseModule::class, ExecutorServiceModule::class])
 @Singleton
 interface AppComponent {
 

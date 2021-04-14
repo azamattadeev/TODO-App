@@ -33,11 +33,8 @@ class NotesListActivity: AppCompatActivity(), NotesListView {
 
         findViewById<FloatingActionButton>(R.id.activity_note_list__add_note_fab)
                 .setOnClickListener { startEditorForNewNote() }
-    }
 
-    override fun onStart() {
-        super.onStart()
-        presenter.loadNoteList()
+        loadNotes()
     }
 
     override fun onDestroy() {
@@ -47,6 +44,10 @@ class NotesListActivity: AppCompatActivity(), NotesListView {
 
     override fun onAllNotesLoaded(notes: List<Note>) {
         notesAdapter.items = notes
+    }
+
+    override fun loadNotes() {
+        presenter.loadNoteList()
     }
 
     private fun onNoteClicked(note: Note) {

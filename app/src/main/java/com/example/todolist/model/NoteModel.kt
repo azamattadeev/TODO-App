@@ -1,4 +1,4 @@
-package com.example.todolist.screens.noteeditor
+package com.example.todolist.model
 
 import android.os.Handler
 import android.os.Looper
@@ -9,18 +9,27 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class NoteEditorModelImpl
+class NoteModel
 @Inject
 constructor(
-    private val noteDao: NoteDao,
-    private val executorService: ExecutorService
-) : NoteEditorModel {
+        private val noteDao: NoteDao,
+        private val executorService: ExecutorService
+) {
 
     private val handler = Handler(Looper.getMainLooper())
 
-    private val listeners: MutableList<NoteEditorModelListener> = ArrayList()
+    private val listeners: MutableList<NoteModelListener> = ArrayList()
 
-    override fun loadNoteById(id: Long) {
+    fun loadAllNotes() {
+        executorService.execute {
+            val notesList: List<Note> = noteDao.getAllOrderByIdDesc()
+            handler.post {
+                listeners.forEach { it.onAllNotesLoaded(notesList)}
+            }
+        }
+    }
+
+    fun loadNoteById(id: Long) {
         executorService.execute {
             val note = noteDao.getById(id)
             handler.post {
@@ -29,7 +38,7 @@ constructor(
         }
     }
 
-    override fun insertNote(note: Note) {
+    fun insertNote(note: Note) {
         executorService.execute {
             val id = noteDao.insert(note)
             handler.post {
@@ -38,7 +47,7 @@ constructor(
         }
     }
 
-    override fun updateNote(note: Note) {
+    fun updateNote(note: Note) {
         executorService.execute {
             noteDao.update(note)
             handler.post {
@@ -47,13 +56,12 @@ constructor(
         }
     }
 
-    override fun addListener(listener: NoteEditorModelListener) {
+    fun addListener(listener: NoteModelListener) {
         listeners.add(listener)
     }
 
-    override fun deleteListener(listener: NoteEditorModelListener) {
+    fun deleteListener(listener: NoteModelListener) {
         listeners.remove(listener)
     }
-
 
 }

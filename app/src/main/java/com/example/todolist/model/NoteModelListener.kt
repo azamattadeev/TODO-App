@@ -1,8 +1,10 @@
-package com.example.todolist.screens.noteeditor
+package com.example.todolist.model
 
 import com.example.todolist.persistence.Note
 
-interface NoteEditorModelListener {
+interface NoteModelListener {
+
+    fun onAllNotesLoaded(notes: List<Note>)
 
     fun onNoteByIdLoaded(note: Note)
 

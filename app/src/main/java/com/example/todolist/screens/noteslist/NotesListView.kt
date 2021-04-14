@@ -6,4 +6,6 @@ interface NotesListView {
 
     fun onAllNotesLoaded(notes: List<Note>)
 
+    fun loadNotes()
+
 }
