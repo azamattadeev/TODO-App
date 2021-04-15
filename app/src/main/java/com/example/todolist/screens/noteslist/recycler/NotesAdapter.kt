@@ -12,7 +12,7 @@ class NotesAdapter(
     private val onNoteClicked: (Note) -> Unit
 ): RecyclerView.Adapter<NotesAdapter.NoteViewHolder>() {
 
-    var items = emptyList<Note>()
+    var items = mutableListOf<Note>()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -30,7 +30,18 @@ class NotesAdapter(
 
     override fun getItemCount(): Int = items.size
 
-    inner class NoteViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    fun insertNote(note: Note) {
+        items.add(0, note)
+        notifyItemInserted(0)
+    }
+
+    fun updateNote(note: Note) {
+        val position = items.indexOf(items.find { it.id == note.id })
+        items[position] = note
+        notifyItemChanged(position)
+    }
+
+    class NoteViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
         val title: TextView = itemView.findViewById(R.id.note_list_item__title)
 

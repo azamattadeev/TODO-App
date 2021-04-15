@@ -14,10 +14,12 @@ import com.example.todolist.screens.noteslist.recycler.NotesAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import javax.inject.Inject
 
-class NotesListActivity: AppCompatActivity(), NotesListView {
+class NotesListActivity: AppCompatActivity(), NotesListViewModel.VMStateObserver {
 
     @Inject
-    lateinit var presenter: NotesListPresenter
+    lateinit var viewModel: NotesListViewModel
+
+    private lateinit var recycler: RecyclerView
 
     private lateinit var notesAdapter: NotesAdapter
 
@@ -25,29 +27,44 @@ class NotesListActivity: AppCompatActivity(), NotesListView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_note_list)
 
+        recycler = findViewById(R.id.activity_note_list__notes_recycler)
+
         NotesApplication.appComponent.inject(this)
 
-        presenter.attachView(this)
+        viewModel.observableState.subscribe(this)
 
         buildRecycler()
 
         findViewById<FloatingActionButton>(R.id.activity_note_list__add_note_fab)
                 .setOnClickListener { startEditorForNewNote() }
 
-        loadNotes()
+        if (savedInstanceState == null) {
+            viewModel.loadNotesList()
+        } else {
+            checkViewModelState()
+        }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        presenter.detachView()
+        viewModel.observableState.unsubscribe(this)
     }
 
-    override fun onAllNotesLoaded(notes: List<Note>) {
-        notesAdapter.items = notes
+    override fun onNotesListChanged(notes: List<Note>) {
+        notesAdapter.items = notes.toMutableList()
     }
 
-    override fun loadNotes() {
-        presenter.loadNotesList()
+    override fun onNoteInserted(note: Note) {
+        notesAdapter.insertNote(note)
+        recycler.layoutManager?.scrollToPosition(0)
+        viewModel.observableState.insertNote = null
+        //TODO snackbar
+    }
+
+    override fun onNoteUpdated(note: Note) {
+        notesAdapter.updateNote(note)
+        viewModel.observableState.updateNote = null
+        //TODO snackbar
     }
 
     private fun onNoteClicked(note: Note) {
@@ -61,8 +78,14 @@ class NotesListActivity: AppCompatActivity(), NotesListView {
         startActivity(intent)
     }
 
+    private fun checkViewModelState() {
+        val insertNote = viewModel.observableState.insertNote
+        val updateNote = viewModel.observableState.updateNote
+        if (insertNote != null) onNoteInserted(insertNote)
+        if (updateNote != null) onNoteUpdated(updateNote)
+    }
+
     private fun buildRecycler() {
-        val recycler = findViewById<RecyclerView>(R.id.activity_note_list__notes_recycler)
         recycler.layoutManager = LinearLayoutManager(this)
         notesAdapter = NotesAdapter { onNoteClicked(it) }
         recycler.adapter = notesAdapter

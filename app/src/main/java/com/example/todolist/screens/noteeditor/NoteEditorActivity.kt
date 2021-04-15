@@ -8,17 +8,15 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.todolist.NOTE_ID_START_EDITOR
 import com.example.todolist.NotesApplication
 import com.example.todolist.R
-import com.example.todolist.persistence.Note
 import javax.inject.Inject
 
-class NoteEditorActivity: AppCompatActivity(), NoteEditorView {
+class NoteEditorActivity: AppCompatActivity(), NoteEditorViewModel.VMStateObserver {
 
     @Inject
-    lateinit var presenter: NoteEditorPresenter
+    lateinit var viewModel: NoteEditorViewModel
 
     private lateinit var title: EditText
     private lateinit var text: EditText
-    private var id: Long? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,59 +24,57 @@ class NoteEditorActivity: AppCompatActivity(), NoteEditorView {
 
         NotesApplication.appComponent.inject(this)
 
-        presenter.attachView(this)
+        viewModel.observableState.subscribe(this)
 
         title = findViewById(R.id.activity_note_editor__title_edit)
         text = findViewById(R.id.activity_note_editor__text_edit)
 
         val backButton = findViewById<Button>(R.id.activity_note_editor__back_btn)
         val saveButton = findViewById<Button>(R.id.activity_note_editor__save_btn)
-        backButton.setOnClickListener { finish() }
+        backButton.setOnClickListener { onNeedFinish()}
         saveButton.setOnClickListener { saveNote() }
 
-        id = intent.extras?.getLong(NOTE_ID_START_EDITOR)
         if (savedInstanceState == null) {
-            id?.let { presenter.loadNoteById(it) }
+            viewModel.observableState.id = intent.extras?.getLong(NOTE_ID_START_EDITOR)
+            viewModel.loadNote()
+        } else {
+            checkViewModelState()
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        presenter.detachView()
+        viewModel.observableState.unsubscribe(this)
     }
 
-    override fun onNoteByIdLoaded(note: Note) {
-        id = note.id
-        title.setText(note.title)
-        text.setText(note.text)
+    override fun onTitleLoaded(title: String) {
+        this.title.setText(title)
     }
 
-    override fun onSavingFinished() {
+    override fun onTextLoaded(text: String) {
+        this.text.setText(text)
+    }
+
+    override fun onNeedFinish() {
+        viewModel.clear()
         finish()
     }
 
-    private fun saveNote() {
-        if (validateTitleAndText()) {
-            val note = Note(id, title.text.toString(), text.text.toString())
-
-            if (note.id == null) {
-                presenter.insertNote(note)
-            } else {
-                presenter.updateNote(note)
-            }
-        }
+    override fun onShowToast(message: String) {
+        showToast(message)
+        viewModel.observableState.toastText = null
     }
 
-    private fun validateTitleAndText(): Boolean {
-        if (title.text.isBlank()) {
-            showToast(getString(R.string.editor_title_is_blank_msg))
-            return false
-        }
-        if (text.text.isBlank()) {
-            showToast(getString(R.string.editor_title_is_blank_msg))
-            return false
-        }
-        return true
+    private fun checkViewModelState() {
+        if (viewModel.observableState.needFinish) onNeedFinish()
+        val toastText = viewModel.observableState.toastText
+        if (toastText != null) onShowToast(toastText)
+    }
+
+    private fun saveNote() {
+        viewModel.observableState.title = title.text.toString()
+        viewModel.observableState.text = text.text.toString()
+        viewModel.saveNote()
     }
 
     private fun showToast(msg: String) {

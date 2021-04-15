@@ -40,9 +40,10 @@ constructor(
 
     fun insertNote(note: Note, callback: () -> Unit) {
         executorService.execute {
-            noteDao.insert(note)
+            val id = noteDao.insert(note)
+            val newNote = Note(id, note.title, note.text)
             handler.post {
-                listeners.forEach { it.onDataChanged() }
+                listeners.forEach { it.onNoteInserted(newNote) }
                 callback()
             }
         }
@@ -52,7 +53,7 @@ constructor(
         executorService.execute {
             noteDao.update(note)
             handler.post {
-                listeners.forEach { it.onDataChanged() }
+                listeners.forEach { it.onNoteUpdated(note) }
                 callback()
             }
         }
@@ -60,10 +61,6 @@ constructor(
 
     fun addListener(listener: NoteModelListener) {
         listeners.add(listener)
-    }
-
-    fun deleteListener(listener: NoteModelListener) {
-        listeners.remove(listener)
     }
 
 }
