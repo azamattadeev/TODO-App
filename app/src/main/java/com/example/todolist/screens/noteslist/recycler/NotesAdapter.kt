@@ -24,8 +24,8 @@ class NotesAdapter(
     }
 
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
-        holder.title.text = items[position].title
-        holder.title.setOnClickListener { onNoteClicked(items[position]) }
+        val note = items[position]
+        holder.bind(note, onNoteClicked)
     }
 
     override fun getItemCount(): Int = items.size
@@ -44,6 +44,11 @@ class NotesAdapter(
     class NoteViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
         val title: TextView = itemView.findViewById(R.id.note_list_item__title)
+
+        fun bind(note: Note, onNoteClicked: (Note) -> Unit) {
+            title.text = note.title
+            title.setOnClickListener { onNoteClicked(note) }
+        }
 
     }
 
