@@ -2,10 +2,12 @@
     <string name="app_name">TODO List</string>
     <string name="add_note_cd">Add</string>
 
+    <string name="notes_list_note_created">Note was created</string>
+    <string name="notes_list_note_updated">Note was updated</string>
+
     <string name="editor_back_text">Back</string>
     <string name="editor_save_text">Save</string>
     <string name="editor_title_is_blank_msg">Title mustn\'t be empty</string>
     <string name="editor_text_is_blank_msg">Text of note mustn\'t be empty</string>
-
 
 </resources>
