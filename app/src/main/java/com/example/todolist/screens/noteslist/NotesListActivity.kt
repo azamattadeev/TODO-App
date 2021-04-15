@@ -83,7 +83,7 @@ class NotesListActivity: AppCompatActivity(), NotesListViewModel.VMStateObserver
     }
 
     private fun processViewModelState() {
-        notesAdapter.items = viewModel.observableState.notes
+        notesAdapter.items = viewModel.observableState.notes.toMutableList()
         val insertNote = viewModel.observableState.insertNote
         val updateNote = viewModel.observableState.updateNote
         if (insertNote != null) onNoteInserted(insertNote)

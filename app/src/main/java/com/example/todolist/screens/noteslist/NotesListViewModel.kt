@@ -40,7 +40,8 @@ constructor(
         var notes: MutableList<Note> = mutableListOf()
             set(value) {
                 field = value
-                observers.forEach { it.onNotesListChanged(value) }
+                val immutableCopy = value.toList()
+                observers.forEach { it.onNotesListChanged(immutableCopy) }
             }
 
         var insertNote: Note? = null
